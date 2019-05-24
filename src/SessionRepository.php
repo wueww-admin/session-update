@@ -34,23 +34,15 @@ class SessionRepository
     public function findById(int $id): ?Session
     {
         $sql = "SELECT s.*,
-                    sdp.title AS sdp_title,
-                    sdp.short_description AS sdp_short_description,
-                    sdp.long_description AS sdp_long_description,
-                    sdp.location_name AS sdp_location_name,
-                    sdp.location_lat AS sdp_location_lat,
-                    sdp.location_lng AS sdp_location_lng,
-                    sdp.link AS sdp_link,
-                    sda.title AS sda_title,
-                    sda.short_description AS sda_short_description,
-                    sda.long_description AS sda_long_description,
-                    sda.location_name AS sda_location_name,
-                    sda.location_lat AS sda_location_lat,
-                    sda.location_lng AS sda_location_lng,
-                    sda.link AS sda_link
+                    sdp.title,
+                    sdp.short_description,
+                    sdp.long_description,
+                    sdp.location_name,
+                    sdp.location_lat,
+                    sdp.location_lng,
+                    sdp.link
                 FROM sessions s
                 INNER JOIN session_details sdp on s.proposed_details = sdp.id
-                LEFT JOIN session_details sda on s.accepted_details = sda.id
                 WHERE s.id = :id";
         $stmt = $this->connection->prepare($sql);
         $stmt->bindValue('id', $id);
